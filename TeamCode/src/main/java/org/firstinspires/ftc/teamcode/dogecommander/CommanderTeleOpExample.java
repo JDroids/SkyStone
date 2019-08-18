@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.dogecommander.bot.Bot;
 import org.firstinspires.ftc.teamcode.dogecommander.bot.commands.teleop.TeleOpDriveControl;
 import org.firstinspires.ftc.teamcode.dogecommander.bot.commands.teleop.TeleOpIntakeControl;
 
-@TeleOp
+@TeleOp(group="DogeCommander")
 public class CommanderTeleOpExample extends LinearOpMode implements DogeOpMode {
     @Override
     public void runOpMode() {

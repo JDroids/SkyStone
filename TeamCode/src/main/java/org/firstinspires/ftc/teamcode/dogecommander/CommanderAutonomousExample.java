@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.dogecommander.bot.commands.DriveForTime;
 import org.firstinspires.ftc.teamcode.dogecommander.bot.commands.RunIntakeForTime;
 import org.firstinspires.ftc.teamcode.dogecommander.bot.subsystems.Intake;
 
-@Autonomous
+@Autonomous(group="DogeCommander")
 public class CommanderAutonomousExample extends LinearOpMode implements DogeOpMode {
     @Override
     public void runOpMode() throws InterruptedException {

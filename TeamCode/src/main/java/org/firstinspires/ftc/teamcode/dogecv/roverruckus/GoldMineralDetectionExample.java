@@ -10,7 +10,6 @@ import org.opencv.core.Rect;
 
 @Autonomous(group="DogeCV")
 public class GoldMineralDetectionExample extends OpMode {
-    // Detector object
     private GoldDetector detector;
 
     @Override
