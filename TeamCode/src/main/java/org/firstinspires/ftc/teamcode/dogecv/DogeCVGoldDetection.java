@@ -5,7 +5,6 @@ import com.disnodeteam.dogecv.DogeCV;
 import com.disnodeteam.dogecv.detectors.roverrukus.GoldDetector;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.opencv.core.Rect;
 
@@ -60,5 +59,11 @@ public class DogeCVGoldDetection extends OpMode {
 
         // Update telemetry
         telemetry.update();
+    }
+
+    @Override
+    public void stop() {
+        // Disable the detector
+        if(detector != null) detector.disable();
     }
 }
