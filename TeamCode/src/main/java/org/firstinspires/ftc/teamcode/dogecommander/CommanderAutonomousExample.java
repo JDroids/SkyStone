@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.dogecommander.bot.commands.RunIntakeForTim
 import org.firstinspires.ftc.teamcode.dogecommander.bot.subsystems.Intake;
 
 @Autonomous
-public class DogeCommanderAutonomous extends LinearOpMode implements DogeOpMode {
+public class CommanderAutonomousExample extends LinearOpMode implements DogeOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         DogeCommander commander = new DogeCommander(this);

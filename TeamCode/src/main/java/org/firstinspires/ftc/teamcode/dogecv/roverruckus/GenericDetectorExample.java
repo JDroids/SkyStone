@@ -1,44 +1,37 @@
-package org.firstinspires.ftc.teamcode.dogecv;
+package org.firstinspires.ftc.teamcode.dogecv.roverruckus;
 
 import com.disnodeteam.dogecv.CameraViewDisplay;
-import com.disnodeteam.dogecv.DogeCV;
-import com.disnodeteam.dogecv.detectors.roverrukus.GoldDetector;
+import com.disnodeteam.dogecv.detectors.GenericDetector;
+import com.disnodeteam.dogecv.filters.DogeCVColorFilter;
+import com.disnodeteam.dogecv.filters.HSVColorFilter;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
+import org.opencv.core.Mat;
 import org.opencv.core.Rect;
+import org.opencv.core.Scalar;
 
+/**
+ * This examples shows how to make your own detector using GenericDetector; this is only recommended
+ * if no detector exists for your use case.
+ */
 @Autonomous(group="DogeCV")
-public class DogeCVGoldDetection extends OpMode {
+public class GenericDetectorExample extends OpMode {
     // Detector object
-    private GoldDetector detector;
+    GenericDetector detector = new GenericDetector();
 
     @Override
     public void init() {
-        // Set up detector:
-        detector = new GoldDetector();
-        // Initialize it with the app context and camera
         detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance());
-        // Set detector to use default settings
+
         detector.useDefaults();
 
-        // Optional tuning:
-        // How much to downscale the input frames
-        detector.downscale = 0.4;
-
-        // Can also be PERFECT_AREA
-        detector.areaScoringMethod = DogeCV.AreaScoringMethod.MAX_AREA;
-        // if using PERFECT_AREA scoring
-        //detector.perfectAreaScorer.perfectArea = 10000;
-
-        // Setting the weight of the area scorer and ratio scorer
-        detector.maxAreaScorer.weight = 0.005;
-        detector.ratioScorer.weight = 5;
-
-        // Ratio adjustment for ratio scorer
         detector.ratioScorer.perfectRatio = 1.0;
+        detector.ratioScorer.weight = 3.0;
+        detector.maxAreaScorer.weight = 1.0;
 
-        // Start the detector
+        detector.colorFilter = new HSVColorFilter(new Scalar(55, 67, 95), new Scalar(20, 40, 30));
+
         detector.enable();
     }
 
