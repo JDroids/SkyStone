@@ -10,6 +10,4 @@ dependencies {
     implementation 'com.github.dogecv:dogecommander:90d3237fb8'
     implementation project(':openCVLibrary3')
     implementation project(':DogeCV')
-
-    implementation 'org.ghrobotics.FalconLibrary:core:2019.6.14'
 }
