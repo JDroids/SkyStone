@@ -28,7 +28,7 @@ internal class DogeCommanderTest {
     }
 
     @Test
-    fun `Does dogeCommander run commands`() {
+    fun `does DogeCommander run commands`() {
         val command = TestCommand()
 
         val commander = DogeCommander(DogeOpMode { true })
