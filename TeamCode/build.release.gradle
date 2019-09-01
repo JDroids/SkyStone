@@ -1,13 +1,19 @@
 dependencies {
     implementation project(':FtcRobotController')
-    implementation (name: 'RobotCore-release', ext: 'aar')
-    implementation (name: 'Hardware-release', ext: 'aar')
-    implementation (name: 'FtcCommon-release', ext: 'aar')
-    implementation (name: 'WirelessP2p-release', ext:'aar')
-    implementation (name: 'tfod-release', ext:'aar')
-    implementation (name: 'tensorflow-lite-0.0.0-nightly', ext:'aar')
+    implementation(name: 'RobotCore-release', ext: 'aar')
+    implementation(name: 'Hardware-release', ext: 'aar')
+    implementation(name: 'FtcCommon-release', ext: 'aar')
+    implementation(name: 'WirelessP2p-release', ext: 'aar')
+    implementation(name: 'tfod-release', ext: 'aar')
+    implementation(name: 'tensorflow-lite-0.0.0-nightly', ext: 'aar')
 
     implementation 'com.github.dogecv:dogecommander:90d3237fb8'
     implementation project(':openCVLibrary3')
     implementation project(':DogeCV')
+
+    testImplementation 'org.junit.platform:junit-platform-commons:1.5.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.5.1'
+    testImplementation 'org.junit.vintage:junit-vintage-engine:5.5.1'
+
+    testImplementation 'org.mockito:mockito-core:3.0.0'
 }

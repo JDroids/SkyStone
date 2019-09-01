@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.bot.commands.teleop
 
-import android.util.Log
 import com.disnodeteam.dogecommander.Command
 import com.qualcomm.robotcore.hardware.Gamepad
 import org.firstinspires.ftc.teamcode.bot.subsystems.MecanumDrive
@@ -15,8 +14,6 @@ class ArcadeDrive(private val drive: MecanumDrive, private val gamepad: Gamepad)
                 gamepad.left_stick_x.toDouble(),
                 gamepad.right_stick_x.toDouble()
         )
-
-        Log.d("ArcadeDrive", gamepad.left_stick_y.toString())
     }
 
     override fun stop() {
