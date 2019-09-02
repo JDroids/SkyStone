@@ -7,7 +7,7 @@ dependencies {
     implementation(name: 'tfod-release', ext: 'aar')
     implementation(name: 'tensorflow-lite-0.0.0-nightly', ext: 'aar')
 
-    implementation 'com.github.dogecv:dogecommander:90d3237fb8'
+    implementation project(':DogeCommander')
     implementation project(':openCVLibrary3')
     implementation project(':DogeCV')
 

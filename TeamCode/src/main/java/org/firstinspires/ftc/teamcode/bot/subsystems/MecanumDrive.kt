@@ -4,7 +4,6 @@ import com.disnodeteam.dogecommander.Subsystem
 import com.qualcomm.robotcore.hardware.DcMotorEx
 import com.qualcomm.robotcore.hardware.DcMotorSimple
 import com.qualcomm.robotcore.hardware.HardwareMap
-import com.qualcomm.robotcore.util.Range
 import kotlin.math.max
 
 class MecanumDrive(private val hardwareMap: HardwareMap) : Subsystem {

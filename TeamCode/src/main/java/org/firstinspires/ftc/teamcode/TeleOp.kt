@@ -4,24 +4,17 @@ import com.disnodeteam.dogecommander.DogeCommander
 import com.disnodeteam.dogecommander.DogeOpMode
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
-import org.firstinspires.ftc.teamcode.bot.Bot
 import org.firstinspires.ftc.teamcode.bot.commands.TelemetryCommand
 import org.firstinspires.ftc.teamcode.bot.commands.teleop.ArcadeDrive
 
 @TeleOp
-class TeleOp : LinearOpMode(), DogeOpMode {
-    override fun runOpMode() {
-        val commander = DogeCommander(this)
-        val bot = Bot(hardwareMap)
-
-        commander.setBot(bot)
-        commander.init()
-
+class TeleOp : OpModeTemplate() {
+    override fun run() {
         waitForStart()
 
         commander.runCommandsParallel(
-                ArcadeDrive(bot.drive, gamepad1),
-                TelemetryCommand(telemetry, bot.drive)
+                ArcadeDrive(drive, gamepad1),
+                TelemetryCommand(telemetry, drive)
         )
 
         commander.stop()

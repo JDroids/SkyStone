@@ -18,6 +18,7 @@ apply plugin: 'kotlin-android'
 repositories {
     mavenCentral()
 }
+
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
@@ -31,5 +32,16 @@ android {
         unitTests {
             includeAndroidResources = true
         }
+    }
+}
+
+buildscript {
+    ext.kotlin_version = '1.3.41'
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }

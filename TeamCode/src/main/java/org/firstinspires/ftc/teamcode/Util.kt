@@ -1,10 +1,6 @@
 package org.firstinspires.ftc.teamcode
 
-import com.disnodeteam.dogecommander.DogeBot
-import com.disnodeteam.dogecommander.DogeCommander
-import com.disnodeteam.dogecommander.DogeOpMode
 import com.qualcomm.hardware.bosch.BNO055IMU
-import org.firstinspires.ftc.teamcode.bot.Bot
 
 fun BNO055IMU.init() {
     val parameters = BNO055IMU.Parameters()
