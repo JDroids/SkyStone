@@ -10,6 +10,11 @@ pool:
   vmImage: 'macos-latest'
 
 steps:
+- checkout: self  # self represents the repo where the initial Pipelines YAML file was found
+  clean: true  # whether to fetch clean each time
+  fetchDepth: number  # the depth of commits to ask Git to fetch
+  lfs: false  # whether to download Git-LFS files
+  submodules: true
 - task: Gradle@2
   inputs:
     workingDirectory: ''
