@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.bot.commands.teleop
 
 import com.qualcomm.robotcore.hardware.Gamepad
 import org.firstinspires.ftc.teamcode.bot.subsystems.MecanumDrive
+import org.firstinspires.ftc.teamcode.bot.subsystems.MecanumDrive.DriveMotorPowers
 import org.junit.Test
 import org.mockito.Mockito.*
 
@@ -23,12 +24,12 @@ internal class ArcadeDriveTest {
         val command = ArcadeDrive(drive, gamepad)
 
         command.start()
-        verify(drive).setPowerForDirections(0.0, 0.0, 0.0)
+        verify(drive).motorPowers = DriveMotorPowers.STOP
 
         command.periodic()
-        verify(drive).setPowerForDirections(SPEED, STRAFE, TURN)
+        verify(drive).motorPowers = DriveMotorPowers(SPEED, STRAFE, TURN)
 
         command.stop()
-        verify(drive, atLeast(2)).setPowerForDirections(0.0, 0.0, 0.0)
+        verify(drive, atLeast(2)).motorPowers = DriveMotorPowers.STOP
     }
 }

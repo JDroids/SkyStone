@@ -5,9 +5,12 @@ import com.qualcomm.robotcore.hardware.DcMotorEx
 import com.qualcomm.robotcore.hardware.DcMotorSimple
 import com.qualcomm.robotcore.hardware.HardwareMap
 import com.qualcomm.robotcore.util.Range
-import kotlin.math.abs
+import kotlin.math.max
 
 class MecanumDrive(private val hardwareMap: HardwareMap) : Subsystem {
+    var periodicCalls = 0
+        private set
+
     private val frontLeftMotor: DcMotorEx
             by lazy { hardwareMap.get(DcMotorEx::class.java, "frontLeft") }
     private val frontRightMotor: DcMotorEx
@@ -18,22 +21,9 @@ class MecanumDrive(private val hardwareMap: HardwareMap) : Subsystem {
             by lazy { hardwareMap.get(DcMotorEx::class.java, "backRight") }
 
     var motorPowers = DriveMotorPowers(0.0, 0.0, 0.0, 0.0)
-        private set
-
-    fun setPowerForDirections(speed: Double, strafe: Double, turn: Double) {
-        val magnitude = abs(speed) + (strafe) + (turn)
-
-        motorPowers = DriveMotorPowers(
-                scale(speed + turn - strafe, magnitude),
-                scale(speed - turn + strafe, magnitude),
-                scale(speed + turn + strafe, magnitude),
-                scale(speed - turn - strafe, magnitude)
-        )
-    }
-
-
-    private fun scale(value: Double, magnitude: Double): Double =
-            Range.scale(value, -magnitude, +magnitude, -MAX_POWER, +MAX_POWER)
+        set(value) {
+            field = value.normalized()
+        }
 
     override fun initHardware() {
         // motors have to be accessed at least once to initialize them due to the nature of lazy
@@ -50,18 +40,42 @@ class MecanumDrive(private val hardwareMap: HardwareMap) : Subsystem {
 
     override fun periodic() {
         frontLeftMotor.power = motorPowers.frontLeft
-        frontLeftMotor.power = motorPowers.frontRight
-        frontLeftMotor.power = motorPowers.frontLeft
-        frontLeftMotor.power = motorPowers.frontLeft
+        frontRightMotor.power = motorPowers.frontRight
+        backLeftMotor.power = motorPowers.backLeft
+        backRightMotor.power = motorPowers.backRight
+
+        periodicCalls++
     }
 
 
     data class DriveMotorPowers(val frontLeft: Double,
                                 val frontRight: Double,
                                 val backLeft: Double,
-                                val backRight: Double)
+                                val backRight: Double) {
+        fun normalized() = this * MAX_POWER / maxOfPowers()
 
-    companion object {
-        val MAX_POWER = 0.9
+        constructor(speed: Double, strafe: Double, turn: Double) : this(
+                speed + turn - strafe,
+                speed - turn + strafe,
+                speed + turn + strafe,
+                speed - turn - strafe
+        )
+
+        private operator fun times(double: Double) = DriveMotorPowers(
+                frontLeft * double,
+                frontRight * double,
+                backLeft * double,
+                backRight * double
+        )
+
+        private operator fun div(double: Double) = this * (1/double)
+
+        private fun maxOfPowers() = max(max(frontLeft, frontRight), max(backLeft, backRight))
+
+        companion object {
+            val STOP = DriveMotorPowers(0.0, 0.0, 0.0, 0.0)
+
+            val MAX_POWER = 0.9
+        }
     }
 }

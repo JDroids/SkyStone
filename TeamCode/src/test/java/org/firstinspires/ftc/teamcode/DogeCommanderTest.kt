@@ -24,7 +24,11 @@ internal class DogeCommanderTest {
             stopTimesRun++
         }
 
-        override fun isCompleted() = periodicTimesRun >= 5
+        override fun isCompleted() = periodicTimesRun >= TIMES_TO_RUN
+
+        companion object {
+            val TIMES_TO_RUN = 5
+        }
     }
 
     @Test
@@ -40,7 +44,7 @@ internal class DogeCommanderTest {
         commander.runCommand(command)
 
         assert(command.startTimesRun == 1)
-        assert(command.periodicTimesRun == 5)
+        assert(command.periodicTimesRun == TestCommand.TIMES_TO_RUN)
         assert(command.stopTimesRun == 1)
     }
 
