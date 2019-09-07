@@ -7,9 +7,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap
 import kotlin.math.max
 
 class MecanumDrive(private val hardwareMap: HardwareMap) : Subsystem {
-    var periodicCalls = 0
-        private set
-
     private val frontLeftMotor: DcMotorEx
             by lazy { hardwareMap.get(DcMotorEx::class.java, "frontLeft") }
     private val frontRightMotor: DcMotorEx
@@ -19,7 +16,7 @@ class MecanumDrive(private val hardwareMap: HardwareMap) : Subsystem {
     private val backRightMotor: DcMotorEx
             by lazy { hardwareMap.get(DcMotorEx::class.java, "backRight") }
 
-    var motorPowers = DriveMotorPowers(0.0, 0.0, 0.0, 0.0)
+    var motorPowers = DriveMotorPowers.STOP
         set(value) {
             field = value.normalized()
         }
@@ -42,10 +39,7 @@ class MecanumDrive(private val hardwareMap: HardwareMap) : Subsystem {
         frontRightMotor.power = motorPowers.frontRight
         backLeftMotor.power = motorPowers.backLeft
         backRightMotor.power = motorPowers.backRight
-
-        periodicCalls++
     }
-
 
     data class DriveMotorPowers(val frontLeft: Double,
                                 val frontRight: Double,

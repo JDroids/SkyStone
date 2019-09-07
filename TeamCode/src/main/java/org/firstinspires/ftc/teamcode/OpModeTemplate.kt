@@ -10,7 +10,6 @@ abstract class OpModeTemplate : LinearOpMode(), DogeOpMode {
     val commander by lazy { DogeCommander(this) }
     val drive by lazy {MecanumDrive(hardwareMap)}
 
-    @Override
     final override fun runOpMode() {
         +drive
 
@@ -27,7 +26,7 @@ abstract class OpModeTemplate : LinearOpMode(), DogeOpMode {
         commander.stop()
     }
 
-    open fun initOpMode() {}
+    abstract fun initOpMode()
 
     abstract fun run()
 
