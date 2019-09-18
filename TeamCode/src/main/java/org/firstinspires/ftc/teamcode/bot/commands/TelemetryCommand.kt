@@ -4,6 +4,7 @@ import com.disnodeteam.dogecommander.Command
 import org.firstinspires.ftc.robotcore.external.Telemetry
 import org.firstinspires.ftc.teamcode.bot.subsystems.MecanumDrive
 
+//TODO: Write proper telemetry code instead of this 50,000,000 IQ thing
 class TelemetryCommand(private val telemetry: Telemetry,
                        private val drive: MecanumDrive) : Command {
     override fun start() {
@@ -12,7 +13,6 @@ class TelemetryCommand(private val telemetry: Telemetry,
 
     override fun periodic() {
         telemetry.addData("Motor Powers", drive.motorPowers)
-        telemetry.addData("Periodic Calls", drive.periodicCalls)
         telemetry.update()
     }
 
