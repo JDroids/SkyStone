@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.teamcode.bot.commands.teleop
 
 import com.qualcomm.robotcore.hardware.Gamepad
-import org.firstinspires.ftc.teamcode.bot.subsystems.MecanumDrive
-import org.firstinspires.ftc.teamcode.bot.subsystems.MecanumDrive.DriveMotorPowers
+import org.firstinspires.ftc.teamcode.bot.subsystems.Drive
+import org.firstinspires.ftc.teamcode.bot.subsystems.Drive.DriveMotorPowers
 import org.junit.Test
 import org.mockito.Mockito.*
 
@@ -19,7 +19,7 @@ internal class ArcadeDriveTest {
         gamepad.left_stick_x = STRAFE.toFloat()
         gamepad.right_stick_x = TURN.toFloat()
 
-        val drive = mock(MecanumDrive::class.java)
+        val drive = mock(Drive::class.java)
 
         val command = ArcadeDrive(drive, gamepad)
 

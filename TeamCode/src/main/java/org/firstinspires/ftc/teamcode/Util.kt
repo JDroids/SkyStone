@@ -13,3 +13,6 @@ fun BNO055IMU.init() {
 
     this.initialize(parameters)
 }
+
+val BNO055IMU.robotHeadingRadians
+    get() = this.angularOrientation.firstAngle.toDouble()

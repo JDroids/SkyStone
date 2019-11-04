@@ -2,12 +2,12 @@ package org.firstinspires.ftc.teamcode.bot.commands.teleop
 
 import com.disnodeteam.dogecommander.Command
 import com.qualcomm.robotcore.hardware.Gamepad
-import org.firstinspires.ftc.teamcode.bot.subsystems.MecanumDrive
-import org.firstinspires.ftc.teamcode.bot.subsystems.MecanumDrive.DriveMotorPowers
+import org.firstinspires.ftc.teamcode.bot.subsystems.Drive
+import org.firstinspires.ftc.teamcode.bot.subsystems.Drive.DriveMotorPowers
 
-class ArcadeDrive(private val drive: MecanumDrive, private val gamepad: Gamepad) : Command {
+class ArcadeDrive(private val drive: Drive, private val gamepad: Gamepad) : Command {
     override fun start() {
-        drive.motorPowers = DriveMotorPowers.STOP
+        drive.motorPowers = Drive.DriveMotorPowers.STOP
     }
 
     override fun periodic() {
@@ -16,8 +16,6 @@ class ArcadeDrive(private val drive: MecanumDrive, private val gamepad: Gamepad)
                 gamepad.left_stick_x.toDouble(),
                 gamepad.right_stick_x.toDouble()
         )
-
-        drive.periodic() // bad idea, should be handled by DogeCommander, fix it idiot
     }
 
     override fun stop() {

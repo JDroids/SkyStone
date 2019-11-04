@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.bot.subsystems
 import com.qualcomm.robotcore.hardware.HardwareMap
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock
-import org.firstinspires.ftc.teamcode.bot.subsystems.MecanumDrive.DriveMotorPowers
+import org.firstinspires.ftc.teamcode.bot.subsystems.Drive.DriveMotorPowers
 
 internal class MecanumDriveTest {
     @Test
@@ -13,7 +13,7 @@ internal class MecanumDriveTest {
         val TURN = 1.0
 
         val hardwareMap = mock(HardwareMap::class.java)
-        val drive = MecanumDrive(hardwareMap)
+        val drive = Drive(hardwareMap)
 
         drive.motorPowers = DriveMotorPowers(SPEED, STRAFE, TURN)
 

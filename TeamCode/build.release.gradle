@@ -8,8 +8,10 @@ dependencies {
     implementation(name: 'tensorflow-lite-0.0.0-nightly', ext: 'aar')
 
     implementation project(':DogeCommander')
-    implementation project(':openCVLibrary3')
-    implementation project(':DogeCV')
+
+    implementation 'com.acmerobotics.roadrunner:core:0.4.5'
+    implementation 'org.openftc:rev-extensions-2:1.2'
+    implementation 'com.acmerobotics.dashboard:dashboard:0.3.4'
 
     testImplementation 'org.junit.platform:junit-platform-commons:1.5.1'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.1'

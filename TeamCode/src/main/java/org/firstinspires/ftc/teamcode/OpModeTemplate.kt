@@ -4,14 +4,17 @@ import com.disnodeteam.dogecommander.DogeCommander
 import com.disnodeteam.dogecommander.DogeOpMode
 import com.disnodeteam.dogecommander.Subsystem
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
-import org.firstinspires.ftc.teamcode.bot.subsystems.MecanumDrive
+import org.firstinspires.ftc.teamcode.bot.subsystems.Drive
+import org.firstinspires.ftc.teamcode.bot.subsystems.FoundationMechanism
 
 abstract class OpModeTemplate : LinearOpMode(), DogeOpMode {
     val commander by lazy { DogeCommander(this) }
-    val drive by lazy {MecanumDrive(hardwareMap)}
+    val drive by lazy {Drive(hardwareMap)}
+    val foundationMechanism by lazy {FoundationMechanism(hardwareMap)}
 
     final override fun runOpMode() {
         +drive
+        +foundationMechanism
 
         commander.init()
 
