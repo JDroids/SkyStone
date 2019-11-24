@@ -36,7 +36,7 @@ class Drive(private val hardwareMap: HardwareMap) :
             by lazy { hardwareMap.get(ExpansionHubMotor::class.java, "backRight") }
 
     private val imu by lazy {hardwareMap.get(BNO055IMU::class.java, "imu")}
-    private val hub by lazy {hardwareMap.get(ExpansionHubEx::class.java, "Expansion Hub 1")}
+    private val hub by lazy {hardwareMap.get(ExpansionHubEx::class.java, "Expansion Hub 2")}
 
     private var robotHeading = 0.0
 
@@ -70,6 +70,8 @@ class Drive(private val hardwareMap: HardwareMap) :
 
         robotHeading = imu.robotHeadingRadians
         revBulkData = hub.bulkInputData
+
+        updatePoseEstimate()
     }
 
     override val rawExternalHeading: Double
@@ -93,10 +95,10 @@ class Drive(private val hardwareMap: HardwareMap) :
                                 val backLeft: Double,
                                 val backRight: Double) {
         constructor(speed: Double, strafe: Double, turn: Double) : this(
-                speed + turn - strafe,
-                speed - turn + strafe,
                 speed + turn + strafe,
-                speed - turn - strafe
+                speed - turn - strafe,
+                speed + turn - strafe,
+                speed - turn + strafe
         )
 
         operator fun times(double: Double) = DriveMotorPowers(

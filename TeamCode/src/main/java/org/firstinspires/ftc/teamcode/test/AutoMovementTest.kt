@@ -1,18 +1,19 @@
 package org.firstinspires.ftc.teamcode.test
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
+import com.qualcomm.robotcore.eventloop.opmode.Disabled
 import org.firstinspires.ftc.teamcode.OpModeTemplate
-import org.firstinspires.ftc.teamcode.bot.commands.FollowTrajectory
+import org.firstinspires.ftc.teamcode.bot.commands.MoveDistance
 import org.firstinspires.ftc.teamcode.bot.commands.Turn
 
+@Disabled
 @Autonomous
 class AutoMovementTest : OpModeTemplate() {
     override fun initOpMode() {}
 
     override fun run() {
-        commander.runCommand(FollowTrajectory(drive,
-                drive.trajectoryBuilder.forward(36.0).build()))
+        commander.runCommand(MoveDistance(drive, 12.0))
 
-        commander.runCommand(Turn(drive, 90.0))
+        //commander.runCommand(Turn(drive, 90.0))
     }
 }

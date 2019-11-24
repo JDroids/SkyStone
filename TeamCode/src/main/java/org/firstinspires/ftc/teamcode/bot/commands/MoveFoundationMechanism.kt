@@ -6,7 +6,7 @@ import org.firstinspires.ftc.teamcode.bot.subsystems.FoundationMechanism
 
 class MoveFoundationMechanism(private val mechanism: FoundationMechanism,
                               private val state: FoundationMechanism.State) : Command {
-    private val timeToWait = 0.2
+    private val timeToWait = 0.5
     private val timer = ElapsedTime()
 
     override fun start() {

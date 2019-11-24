@@ -13,8 +13,8 @@ class ArcadeDrive(private val drive: Drive, private val gamepad: Gamepad) : Comm
     override fun periodic() {
         drive.motorPowers = DriveMotorPowers(
                 -gamepad.left_stick_y.toDouble(),
-                gamepad.left_stick_x.toDouble(),
-                gamepad.right_stick_x.toDouble()
+                -gamepad.left_stick_x.toDouble(),
+                -gamepad.right_stick_x.toDouble()
         )
     }
 

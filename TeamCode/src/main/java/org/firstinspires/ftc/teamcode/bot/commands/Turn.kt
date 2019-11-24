@@ -1,61 +1,51 @@
 package org.firstinspires.ftc.teamcode.bot.commands
 
+import com.acmerobotics.dashboard.FtcDashboard
 import com.acmerobotics.dashboard.config.Config
 import com.acmerobotics.roadrunner.control.PIDCoefficients
-import com.acmerobotics.roadrunner.profile.MotionProfile
-import com.acmerobotics.roadrunner.profile.MotionProfileGenerator
 import com.disnodeteam.dogecommander.Command
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit
 import org.firstinspires.ftc.teamcode.bot.subsystems.Drive
-import com.acmerobotics.roadrunner.profile.MotionState
-import com.qualcomm.robotcore.util.ElapsedTime
 import com.acmerobotics.roadrunner.control.PIDFController
-import com.acmerobotics.roadrunner.drive.DriveSignal
-import com.acmerobotics.roadrunner.geometry.Pose2d
+import com.qualcomm.robotcore.util.ElapsedTime
+import kotlin.math.abs
 
-
-class Turn(private val drive: Drive, angle: Double,
-           angleUnit: AngleUnit=AngleUnit.DEGREES) : Command {
-    private lateinit var turnProfile: MotionProfile
-    private val timer = ElapsedTime()
-    private val radiansToTurn = angleUnit.toRadians(angle)
-
-    private val controller = PIDFController(PIDCoefficients(1.0, 0.0, 0.0))
-
+class Turn (private val drive: Drive, angle: Double,
+            angleUnit: AngleUnit=AngleUnit.DEGREES) : Command {
+    private val controller = PIDFController(TurnConstants.TURN_PID_COEFFICIENTS)
+    private val angleInRadians = angleUnit.toRadians(angle)
+    private val target = angleInRadians // by lazy {AngleUnit.normalizeRadians(drive.poseEstimate.heading + angleInRadians)}
 
     override fun start() {
-        val heading = drive.poseEstimate.heading
-
-        turnProfile = MotionProfileGenerator.generateSimpleMotionProfile(
-                MotionState(heading, 0.0, 0.0, 0.0),
-                MotionState(heading + radiansToTurn, 0.0, 0.0, 0.0),
-                Drive.constraints.maxAngVel,
-                Drive.constraints.maxAngAccel,
-                Drive.constraints.maxAngJerk
-        )
-
-        timer.reset()
+        controller.targetPosition = target
+        controller.setOutputBounds(-1.0, 1.0)
+        controller.reset()
     }
 
     override fun periodic() {
-        val targetState = turnProfile[timer.seconds()]
-        val correction = controller.update(drive.poseEstimate.heading, targetState.v)
+        val position = AngleUnit.normalizeRadians(drive.poseEstimate.heading)
+        val controllerResult = controller.update(position)
 
-        drive.setDriveSignal(DriveSignal(
-                Pose2d(0.0, 0.0, targetState.v + correction),
-                Pose2d(0.0, 0.0, targetState.a)
-        ))
+        drive.motorPowers = Drive.DriveMotorPowers(
+                0.0, 0.0, controllerResult
+        )
+
+        FtcDashboard.getInstance().telemetry.addData("Controller Result", controllerResult)
+        FtcDashboard.getInstance().telemetry.addData("Heading", drive.poseEstimate.heading)
+        FtcDashboard.getInstance().telemetry.update()
     }
 
     override fun stop() {
         drive.motorPowers = Drive.DriveMotorPowers.STOP
     }
 
-    override fun isCompleted() = timer.seconds() >= turnProfile.duration()
+    override fun isCompleted() =
+            abs(AngleUnit.normalizeRadians(drive.poseEstimate.heading-target)) <=
+                    AngleUnit.DEGREES.toRadians(3.0)
 
     @Config
-    companion object {
-        @JvmField var TURN_PID_COEFFICIENTS = PIDCoefficients(0.1, 0.0, 0.0)
+    object TurnConstants {
+        @JvmField var TURN_PID_COEFFICIENTS = PIDCoefficients(1.0, 0.0, 0.0)
     }
 
 }

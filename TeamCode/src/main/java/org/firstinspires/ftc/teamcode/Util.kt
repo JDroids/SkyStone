@@ -16,3 +16,8 @@ fun BNO055IMU.init() {
 
 val BNO055IMU.robotHeadingRadians
     get() = this.angularOrientation.firstAngle.toDouble()
+
+enum class Alliance(val multiplier: Int) {
+    BLUE(1),
+    RED(-1)
+}
