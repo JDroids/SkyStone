@@ -6,8 +6,7 @@ import com.qualcomm.robotcore.util.ElapsedTime
 import org.firstinspires.ftc.teamcode.bot.subsystems.Deposit
 
 class ControlDeposit(private val deposit: Deposit, private val gamepad: Gamepad) : Command {
-    private val timer = ElapsedTime()
-    private val timeToWait = 50
+    private var previousButtonPosition = false
 
     override fun start() {}
 
@@ -19,10 +18,13 @@ class ControlDeposit(private val deposit: Deposit, private val gamepad: Gamepad)
             else -> deposit.depositPos
         }
 
-        if (gamepad.x && timer.milliseconds() >= timeToWait) {
+        val currentButtonPosition = gamepad.x
+
+        if (currentButtonPosition && !previousButtonPosition) {
             deposit.graspState = !deposit.graspState
-            timer.reset()
         }
+        
+        previousButtonPosition = currentButtonPosition
     }
 
     override fun stop() {}
