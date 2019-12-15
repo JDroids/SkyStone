@@ -26,11 +26,11 @@ abstract class OpModeTemplate(shouldIntakeDeploy: Boolean=false) : LinearOpMode(
 
         commander.init()
 
+        commander.start()
+
         initOpMode()
 
         waitForStart()
-
-        commander.start()
 
         run()
 

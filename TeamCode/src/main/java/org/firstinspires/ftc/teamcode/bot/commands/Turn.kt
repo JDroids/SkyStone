@@ -30,9 +30,9 @@ class Turn (private val drive: Drive, angle: Double,
                 0.0, 0.0, controllerResult
         )
 
-        FtcDashboard.getInstance().telemetry.addData("Controller Result", controllerResult)
-        FtcDashboard.getInstance().telemetry.addData("Heading", drive.poseEstimate.heading)
-        FtcDashboard.getInstance().telemetry.update()
+        // FtcDashboard.getInstance().telemetry.addData("Controller Result", controllerResult)
+        // FtcDashboard.getInstance().telemetry.addData("Heading", drive.poseEstimate.heading)
+        // FtcDashboard.getInstance().telemetry.update()
     }
 
     override fun stop() {

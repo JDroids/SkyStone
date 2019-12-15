@@ -11,7 +11,7 @@
             <ContinuousRotationServo name="intakeServoRight" port="2" />
             <Servo name="hookRight" port="4" />
             <Servo name="depositGrasp" port="5" />
-            <LynxEmbeddedIMU name="imu" port="0" bus="0" />
+            <LynxEmbeddedIMU name="imu 1" port="0" bus="0" />
         </LynxModule>
         <LynxModule name="Expansion Hub 2" port="2">
             <RevRobotics40HDHexMotor name="intakeMotorRight" port="0" />
@@ -20,7 +20,7 @@
             <Servo name="fServo1" port="1" />
             <ContinuousRotationServo name="intakeServoLeft" port="3" />
             <Servo name="hookLeft" port="4" />
-            <LynxEmbeddedIMU name="imu 1" port="0" bus="0" />
+            <LynxEmbeddedIMU name="imu" port="0" bus="0" />
         </LynxModule>
     </LynxUsbDevice>
 </Robot>
