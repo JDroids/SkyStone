@@ -13,8 +13,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-@Autonomous(name = "Turn90Degrees", group = "")
-public class Turn90Degrees extends LinearOpMode {
+@Autonomous(name="\uD83D\uDD34 Turn90DegreesAS \uD83D\uDE0A")
+public class Turn90DegreesAS extends LinearOpMode {
 
     private BNO055IMU imu;
 
