@@ -26,7 +26,7 @@ class Drive(private val hardwareMap: HardwareMap) :
     val TICKS_PER_REVOLUTION = 537.6
     val WHEEL_RADIUS_ADJUSTED = 1.968504
 
-    private val frontLeftMotor
+    private val frontLeftMotor 
             by lazy { hardwareMap.get(ExpansionHubMotor::class.java, "frontLeft") }
     private val frontRightMotor
             by lazy { hardwareMap.get(ExpansionHubMotor::class.java, "frontRight") }
