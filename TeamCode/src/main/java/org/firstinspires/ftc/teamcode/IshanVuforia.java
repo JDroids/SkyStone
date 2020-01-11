@@ -29,6 +29,7 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -50,6 +51,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.XYZ;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YZX;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
+
 
 /**
  * This 2019-2020 OpMode illustrates the basics of using the Vuforia localizer to determine
@@ -82,8 +84,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
  */
 
 
-@TeleOp(name="IshanVuforia", group ="Concept")
-@Disabled
+@Autonomous(name="IshanVuforia", group ="Concept")
 public class IshanVuforia extends LinearOpMode {
 
     // IMPORTANT:  For Phone Camera, set 1) the camera source and 2) the orientation, based on how your phone is mounted:
@@ -108,7 +109,7 @@ public class IshanVuforia extends LinearOpMode {
      * and paste it in to your code on the next line, between the double quotes.
      */
     private static final String VUFORIA_KEY =
-            " -- Af8z1N//////AAABmd+VTcKIy0DvswaS6ptJxhU6esp8q/iwhtFaV1BcqNpTKe5OuZmOsRDT7ThrIx4/49OsRIPgC18aN8v93oqt/F0IGHy32sgT5U3BV7xchvQ5uGUvACuy4+9wXouHBalSXYWX/bLd0hhYVx3oe+D/WqrhqmZTvLbjAdxRdecRc0wNDwUSN1Iz0dQR19h8TDdenzHR7vNBVAR44/X4c8fFuEnJ06lKxJqzunFAgsRmBt5uzG/HLg1vxRJDfX04pEDILoJKfG9hqI1Hx+MjBcdJj4WMLg43D9iokXSuc7I9SJiu7L6TwWutKeK9ANACkCdAN6UaYpNXFRf9pjvhCLeTa2mlWkuN7gIxeswkuL+x4qtQ --- ";
+            "Af8z1N//////AAABmd+VTcKIy0DvswaS6ptJxhU6esp8q/iwhtFaV1BcqNpTKe5OuZmOsRDT7ThrIx4/49OsRIPgC18aN8v93oqt/F0IGHy32sgT5U3BV7xchvQ5uGUvACuy4+9wXouHBalSXYWX/bLd0hhYVx3oe+D/WqrhqmZTvLbjAdxRdecRc0wNDwUSN1Iz0dQR19h8TDdenzHR7vNBVAR44/X4c8fFuEnJ06lKxJqzunFAgsRmBt5uzG/HLg1vxRJDfX04pEDILoJKfG9hqI1Hx+MjBcdJj4WMLg43D9iokXSuc7I9SJiu7L6TwWutKeK9ANACkCdAN6UaYpNXFRf9pjvhCLeTa2mlWkuN7gIxeswkuL+x4qtQ";
 
     // Since ImageTarget trackables use mm to specifiy their dimensions, we must use mm for all the physical dimension.
     // We will define some constants and conversions here
