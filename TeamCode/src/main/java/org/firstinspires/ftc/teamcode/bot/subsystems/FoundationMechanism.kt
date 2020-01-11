@@ -23,8 +23,8 @@ class FoundationMechanism(private val hardwareMap: HardwareMap) : Subsystem {
     override fun periodic() {
         when (state) {
             State.RETRACTED -> {
-                leftFoundationServo.position = 1.0
-                rightFoundationServo.position = 0.0
+                leftFoundationServo.position = 0.8
+                rightFoundationServo.position = 0.2
             }
             State.DEPLOYED -> {
                 leftFoundationServo.position = 0.0

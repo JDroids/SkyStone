@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
+import com.qualcomm.robotcore.eventloop.opmode.Disabled
 import org.firstinspires.ftc.teamcode.bot.commands.MoveDistance
 import org.firstinspires.ftc.teamcode.bot.commands.Turn
 
@@ -38,9 +39,10 @@ abstract class FoundationAndParkFar(private val alliance: Alliance) : Foundation
         +MoveDistance(drive, -12.0)
     }
 }
-
+@Disabled
 @Autonomous(name="BlueFoundationAndParkFar")
 class BlueFoundationAndParkFar() : FoundationAndParkFar(Alliance.BLUE)
 
+@Disabled
 @Autonomous(name="RedFoundationAndParkFar")
 class RedFoundationAndParkFar() : FoundationAndParkFar(Alliance.RED)

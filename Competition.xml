@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
 <Robot type="FirstInspires-FTC">
-    <LynxUsbDevice name="Expansion Hub Portal 1" serialNumber="(embedded)" parentModuleAddress="1">
-        <LynxModule name="Expansion Hub 2" port="1">
+    <LynxUsbDevice name="Expansion Hub Portal 1" serialNumber="DQ3LV094" parentModuleAddress="3">
+        <LynxModule name="Expansion Hub 3" port="3">
             <NeveRest20Gearmotor name="backLeft" port="0" />
             <NeveRest20Gearmotor name="frontLeft" port="1" />
             <NeveRest20Gearmotor name="backRight" port="2" />
@@ -11,16 +11,16 @@
             <ContinuousRotationServo name="intakeServoRight" port="2" />
             <Servo name="hookRight" port="4" />
             <Servo name="depositGrasp" port="5" />
-            <LynxEmbeddedIMU name="imu" port="0" bus="0" />
+            <LynxEmbeddedIMU name="imu 1" port="0" bus="0" />
         </LynxModule>
-        <LynxModule name="Expansion Hub 3" port="3">
+        <LynxModule name="Expansion Hub 2" port="2">
             <RevRobotics40HDHexMotor name="intakeMotorRight" port="0" />
             <RevRobotics40HDHexMotor name="intakeMotorLeft" port="1" />
             <Servo name="depositPivot" port="0" />
             <Servo name="fServo1" port="1" />
             <ContinuousRotationServo name="intakeServoLeft" port="3" />
             <Servo name="hookLeft" port="4" />
-            <LynxEmbeddedIMU name="imu 1" port="0" bus="0" />
+            <LynxEmbeddedIMU name="imu" port="0" bus="0" />
         </LynxModule>
     </LynxUsbDevice>
 </Robot>

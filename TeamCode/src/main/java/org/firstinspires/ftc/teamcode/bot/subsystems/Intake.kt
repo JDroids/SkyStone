@@ -3,8 +3,10 @@ package org.firstinspires.ftc.teamcode.bot.subsystems
 import android.util.Log
 import com.disnodeteam.dogecommander.DogeOpMode
 import com.disnodeteam.dogecommander.Subsystem
+import com.qualcomm.hardware.rev.Rev2mDistanceSensor
 import com.qualcomm.robotcore.hardware.*
 import com.qualcomm.robotcore.util.ElapsedTime
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit
 
 class Intake(private val opMode: DogeOpMode, private val hardwareMap: HardwareMap, private var shouldDeploy: Boolean) : Subsystem {
     private val leftMotor by lazy {hardwareMap.get(DcMotorEx::class.java, "intakeMotorLeft")}

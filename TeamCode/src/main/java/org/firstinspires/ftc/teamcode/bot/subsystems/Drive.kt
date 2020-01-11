@@ -36,7 +36,7 @@ class Drive(private val hardwareMap: HardwareMap) :
             by lazy { hardwareMap.get(ExpansionHubMotor::class.java, "backRight") }
 
     private val imu by lazy {hardwareMap.get(BNO055IMU::class.java, "imu")}
-    private val hub by lazy {hardwareMap.get(ExpansionHubEx::class.java, "Expansion Hub 2")}
+    private val hub by lazy {hardwareMap.get(ExpansionHubEx::class.java, "Expansion Hub 3")}
 
     private var robotHeading = 0.0
 
