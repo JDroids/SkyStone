@@ -87,6 +87,11 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 @Autonomous(name="VuforiaTest \uD83C\uDFBA\uD83C\uDFBA\uD83C\uDFBA")
 public class VuforiaTest extends LinearOpMode {
+    private DcMotor frontRight = null;
+    private DcMotor frontLeft = null;
+    private DcMotor backRight = null;
+    private DcMotor backLeft = null;
+
 
     // IMPORTANT:  For Phone Camera, set 1) the camera source and 2) the orientation, based on how your phone is mounted:
     // 1) Camera Source.  Valid choices are:  BACK (behind screen) or FRONT (selfie side)
@@ -140,6 +145,17 @@ public class VuforiaTest extends LinearOpMode {
     private float phoneZRotate    = 0;
 
     @Override public void runOpMode() {
+
+        backLeft = hardwareMap.get(DcMotor.class, "backLeft");
+        frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
+        backRight = hardwareMap.get(DcMotor.class, "backRight");
+        frontRight = hardwareMap.get(DcMotor.class, "frontRight");
+
+        frontLeft.setDirection(DcMotor.Direction.REVERSE);
+        frontRight.setDirection(DcMotor.Direction.FORWARD);
+        backLeft.setDirection(DcMotor.Direction.REVERSE);
+        backRight.setDirection(DcMotor.Direction.FORWARD);
+
         /*
          * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
          * We can pass Vuforia the handle to a camera preview resource (on the RC phone);
@@ -246,6 +262,11 @@ public class VuforiaTest extends LinearOpMode {
         // AFTER you hit Init on the Driver Station, use the "options menu" to select "Camera Stream"
         // Tap the preview window to receive a fresh image.
 
+        frontLeft.setPower(-0.2);
+        frontRight.setPower(-0.2);
+        backLeft.setPower(-0.2);
+        backRight.setPower(-0.2);
+
         targetsSkyStone.activate();
         while (!isStopRequested()) {
 
@@ -276,6 +297,14 @@ public class VuforiaTest extends LinearOpMode {
                 // express the rotation of the robot in degrees.
                 Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
                 telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
+
+                if (targetVisible) {
+                    frontLeft.setPower(0);
+                    frontRight.setPower(0);
+                    backLeft.setPower(0);
+                    backRight.setPower(0);
+                }
+                break;
             }
             else {
                 telemetry.addData("Visible Target", "none");
