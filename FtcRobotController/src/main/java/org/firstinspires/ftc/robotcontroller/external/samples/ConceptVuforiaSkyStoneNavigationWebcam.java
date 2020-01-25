@@ -289,7 +289,7 @@ public class ConceptVuforiaSkyStoneNavigationWebcam extends LinearOpMode {
         // pointing to the LEFT side of the Robot.
         // The two examples below assume that the camera is facing forward out the front of the robot.
 
-        // We need to rotate the camera around it's long axis to bring the correct camera forward.
+        // We need to rotate the camera around its long axis to bring the correct camera forward.
         if (CAMERA_CHOICE == BACK) {
             phoneYRotate = -90;
         } else {
