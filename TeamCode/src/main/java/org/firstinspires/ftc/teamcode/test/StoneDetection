@@ -24,7 +24,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
  * @see <a href="http://revrobotics.com">REV Robotics Web Page</a>
  */
 @Autonomous(name = "StoneDetection")
-public class StoneInIntake extends LinearOpMode {
+public class StoneDetection extends LinearOpMode {
 
     private DistanceSensor sensorRange;
     boolean Stone = false;
