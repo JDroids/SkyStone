@@ -1,40 +1,43 @@
 package org.firstinspires.ftc.teamcode.bot.commands
 
 import android.util.Log
+import com.arcrobotics.ftclib.vision.SkystoneDetector
 import com.disnodeteam.dogecommander.Command
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
 import org.firstinspires.ftc.teamcode.EpsilonSkyStonePipeline
+import org.openftc.easyopencv.OpenCvCamera
 import org.openftc.easyopencv.OpenCvCameraFactory
 import org.openftc.easyopencv.OpenCvCameraRotation
 import org.openftc.easyopencv.OpenCvInternalCamera
 
 
-class DetectSkystone(private val opMode: LinearOpMode) : Command {
+class DetectSkystone(private val opMode: LinearOpMode, private val camera: OpenCvCamera) : Command {
     private val cameraMonitorViewId = opMode.hardwareMap.appContext.resources.getIdentifier(
             "cameraMonitorViewId", "id", opMode.hardwareMap.appContext.packageName)
 
-    private val phoneCam = OpenCvCameraFactory.getInstance()
-            .createInternalCamera(OpenCvInternalCamera.CameraDirection.BACK, cameraMonitorViewId)
+    val pipeline = SkystoneDetector()
 
-    private val pipeline = EpsilonSkyStonePipeline()
+    init {
+        camera.openCameraDevice()
+
+        camera.setPipeline(pipeline)
+
+        camera.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT)
+    }
 
     override fun start() {
-        phoneCam.openCameraDevice()
 
-        phoneCam.setPipeline(pipeline)
-
-        phoneCam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT)
     }
 
     override fun periodic() {
-        opMode.telemetry.addData("Skystone Left",
-                pipeline.vumarkLeftBoundary)
+        opMode.telemetry.addData("Skystone Position",
+                pipeline.skystonePosition)
 
         opMode.telemetry.update()
     }
 
     override fun stop() {
-        phoneCam.stopStreaming()
+        camera.stopStreaming()
     }
 
     override fun isCompleted() = false // opMode.isStarted

@@ -1,47 +1,84 @@
 package org.firstinspires.ftc.teamcode.bot.subsystems
 
+import android.util.Log
+import com.acmerobotics.dashboard.config.Config
 import com.disnodeteam.dogecommander.Subsystem
-import com.qualcomm.robotcore.hardware.HardwareMap
-import com.qualcomm.robotcore.hardware.ServoImplEx
+import com.qualcomm.robotcore.hardware.*
+import org.firstinspires.ftc.teamcode.bot.subsystems.LiftConfig.LIFT_PID
 
 class Deposit(private val hardwareMap: HardwareMap) : Subsystem {
-    private val pivotServo by lazy {hardwareMap.get(ServoImplEx::class.java, "depositPivot")}
-    private val graspServo by lazy {hardwareMap.get(ServoImplEx::class.java, "depositGrasp")}
+    private val leftDeposit by lazy {hardwareMap.get(DcMotorEx::class.java, "depositExtensionLeft")}
+    private val rightDeposit by lazy {hardwareMap.get(DcMotorEx::class.java, "depositExtensionRight")}
+    private val liftMotors by lazy { listOf(leftDeposit, rightDeposit) }
 
-    enum class PivotPosition {
-        RETRACTED,
-        LEVEL_1,
-        LEVEL_2
+    private val graspServo by lazy {hardwareMap.get(ServoImplEx::class.java, "graspServo") }
+    private val fourBarServo by lazy {hardwareMap.get(ServoImplEx::class.java, "fourBarServo") }
+
+    private var tickOffsetLeft = 0
+    private var tickOffsetRight = 0
+
+    var height: Double = 0.0
+        private set
+
+    var targetHeight = 0.0
+
+    enum class VirtualFourBarState(val servoPosition: Double) {
+        IN(0.0),
+        OUT(0.7)
     }
 
-    enum class GraspState {
-        GRASPED,
-        OPEN;
-
-        operator fun not() = when (this) {
-            GRASPED -> OPEN
-            OPEN -> GRASPED
-        }
+    enum class GraspState(val servoPosition: Double) {
+        OPEN(0.2),
+        CLOSED(0.7)
     }
 
-    var depositPos = PivotPosition.RETRACTED
+    var fourBarState = VirtualFourBarState.IN
     var graspState = GraspState.OPEN
 
     override fun initHardware() {
-        pivotServo
-        graspServo
+        leftDeposit
+        rightDeposit.direction = DcMotorSimple.Direction.REVERSE
+
+        liftMotors.forEach {
+            it.apply {
+                setPIDFCoefficients(DcMotor.RunMode.RUN_TO_POSITION, LIFT_PID)
+                mode = DcMotor.RunMode.STOP_AND_RESET_ENCODER
+                this.targetPosition = 0
+                mode = DcMotor.RunMode.RUN_TO_POSITION
+            }
+        }
+        reset()
     }
 
     override fun periodic() {
-        pivotServo.position = when(depositPos) {
-            PivotPosition.RETRACTED -> 0.9
-            PivotPosition.LEVEL_1 -> 0.1
-            PivotPosition.LEVEL_2 -> 0.3
+        targetHeight = if (targetHeight > 0) targetHeight else 0.0
+
+        val targetPosition = heightToEncoderTicks(targetHeight).toInt()
+
+        leftDeposit.targetPosition = targetPosition - tickOffsetLeft
+        rightDeposit.targetPosition = targetPosition - tickOffsetRight
+
+        liftMotors.forEach {
+            it.setPIDFCoefficients(DcMotor.RunMode.RUN_TO_POSITION, LIFT_PID)
+            it.power = 0.8
         }
 
-        graspServo.position = when (graspState) {
-            GraspState.GRASPED -> 1.0
-            GraspState.OPEN -> if (depositPos == PivotPosition.RETRACTED) 0.9 else 0.7
-        }
+        fourBarServo.position = fourBarState.servoPosition
+        graspServo.position = graspState.servoPosition
     }
+
+    private fun reset() {
+        tickOffsetLeft = leftDeposit.currentPosition
+        tickOffsetRight = rightDeposit.currentPosition
+    }
+
+    private fun encoderTicksToHeight(ticks: Double) = Math.PI * 1.57 * ticks/537.6
+
+    private fun heightToEncoderTicks(height: Double) = (537.6 * height) / (Math.PI * 1.57)
+
+}
+
+@Config
+object LiftConfig {
+    @JvmField var LIFT_PID = PIDFCoefficients(3.0, 0.0, 0.0, 0.0)
 }
