@@ -37,11 +37,8 @@ class Drive(private val hardwareMap: HardwareMap) :
             by lazy { hardwareMap.get(ExpansionHubMotor::class.java, "backRight") }
 
     private val imu by lazy {hardwareMap.get(BNO055IMU::class.java, "imu")}
-    private val hub by lazy {hardwareMap.get(ExpansionHubEx::class.java, "Expansion Hub 3")}
 
     private var robotHeading = 0.0
-
-    private lateinit var revBulkData: RevBulkData
 
     var motorPowers = DriveMotorPowers.STOP
 
@@ -60,7 +57,6 @@ class Drive(private val hardwareMap: HardwareMap) :
         imu.init()
 
         // hub has to be accessed because of lazy
-        revBulkData = hub.bulkInputData
     }
 
     override fun periodic() {
@@ -70,8 +66,6 @@ class Drive(private val hardwareMap: HardwareMap) :
         backRightMotor.power = motorPowers.backRight
 
         robotHeading = imu.robotHeadingRadians
-        revBulkData = hub.bulkInputData
-
         updatePoseEstimate()
     }
 
@@ -79,9 +73,12 @@ class Drive(private val hardwareMap: HardwareMap) :
         get() = robotHeading
 
     override fun getWheelPositions(): List<Double> =
-            IntArray(4, {it}).
-                    map {revBulkData.getMotorCurrentPosition(it)}.map { encoderTicksToInches(it) }
-
+           listOf(
+                   frontLeftMotor.currentPosition,
+                   backLeftMotor.currentPosition,
+                   frontRightMotor.currentPosition,
+                   backRightMotor.currentPosition
+           ).map { encoderTicksToInches(it) }
     override fun setMotorPowers(frontLeft: Double, rearLeft: Double, rearRight: Double, frontRight: Double) {
         this.motorPowers = DriveMotorPowers(
                 frontLeft, frontRight, rearLeft, rearRight

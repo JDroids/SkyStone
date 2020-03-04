@@ -5,20 +5,19 @@ import com.disnodeteam.dogecommander.DogeCommander
 import com.disnodeteam.dogecommander.DogeOpMode
 import com.disnodeteam.dogecommander.Subsystem
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
-import org.firstinspires.ftc.teamcode.bot.subsystems.Deposit
-import org.firstinspires.ftc.teamcode.bot.subsystems.Drive
-import org.firstinspires.ftc.teamcode.bot.subsystems.FoundationMechanism
-import org.firstinspires.ftc.teamcode.bot.subsystems.Intake
+import org.firstinspires.ftc.teamcode.bot.subsystems.*
 
 abstract class OpModeTemplate(shouldIntakeDeploy: Boolean=false) : LinearOpMode(), DogeOpMode {
     val commander by lazy { DogeCommander(this) }
 
+    private val bulkReadManager by lazy { BulkReadManager(hardwareMap) }
     val drive by lazy {Drive(hardwareMap)}
     val foundationMechanism by lazy {FoundationMechanism(hardwareMap)}
     val intake by lazy { Intake(this, hardwareMap, shouldIntakeDeploy) }
     val deposit by lazy { Deposit(hardwareMap) }
 
     final override fun runOpMode() {
+        +bulkReadManager
         +drive
         +foundationMechanism
         +intake

@@ -17,15 +17,13 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 
 repositories {
-
     mavenCentral()
-    maven { url "https://ftclib.bintray.com/FTCLib" }
-
+    jcenter()
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'com.arcrobotics:ftclib:2.0.1'
+    implementation 'com.arcrobotics:ftclib:2.0.8'
 
 }
 
